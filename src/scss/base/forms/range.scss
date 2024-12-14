@@ -26,7 +26,7 @@
 	z-index: 1;
 }
 /* Wrapper for all connect elements.
- */
+   */
 .noUi-connects {
 	overflow: hidden;
 	z-index: 0;
@@ -47,14 +47,14 @@
 	transform-style: flat;
 }
 /* Offset direction
- */
+   */
 .noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
 	left: 0;
 	right: auto;
 }
 /* Give origins 0 height/width so they don't interfere with clicking the
- * connect elements.
- */
+   * connect elements.
+   */
 .noUi-vertical .noUi-origin {
 	top: -100%;
 	width: 0;
@@ -78,37 +78,39 @@
 	cursor: inherit !important;
 }
 /* Slider size and handle placement;
- */
+   */
 .noUi-horizontal {
-	height: 18px;
+	height: toRem(20);
 }
 .noUi-horizontal .noUi-handle {
-	width: 34px;
-	height: 28px;
-	right: -17px;
-	top: -6px;
+	width: toRem(30);
+	height: toRem(30);
+	right: toRem(-15);
+	bottom: toRem(-24);
 }
 .noUi-vertical {
-	width: 18px;
+	width: toRem(20);
 }
 .noUi-vertical .noUi-handle {
-	width: 28px;
-	height: 34px;
-	right: -6px;
-	bottom: -17px;
+	width: toRem(30);
+	height: toRem(30);
+	right: toRem(-5);
+	bottom: toRem(-25);
 }
 .noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
 	left: -17px;
 	right: auto;
 }
 /* Styling;
- * Giving the connect element a border radius causes issues with using transform: scale
- */
+   * Giving the connect element a border radius causes issues with using transform: scale
+   */
 .noUi-target {
 	background: #fafafa;
 	border-radius: 4px;
 	border: 1px solid #d3d3d3;
-	box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
+	box-shadow:
+		inset 0 1px 1px #f0f0f0,
+		0 3px 6px -5px #bbb;
 }
 .noUi-connects {
 	border-radius: 3px;
@@ -117,7 +119,7 @@
 	background: #3fb8af;
 }
 /* Handles and cursors;
- */
+   */
 .noUi-draggable {
 	cursor: ew-resize;
 }
@@ -125,43 +127,50 @@
 	cursor: ns-resize;
 }
 .noUi-handle {
-	border: 1px solid #d9d9d9;
+	border: 1px solid #000;
 	border-radius: 3px;
 	background: #fff;
-	cursor: default;
-	box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
+	cursor: grab;
+	box-shadow:
+		inset 0 0 1px #fff,
+		inset 0 1px 7px #ebebeb,
+		0 3px 6px -3px #bbb;
 }
 .noUi-active {
-	box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ddd, 0 3px 6px -3px #bbb;
+	box-shadow:
+		inset 0 0 1px #fff,
+		inset 0 1px 7px #ddd,
+		0 3px 6px -3px #bbb;
+	cursor: grabbing;
 }
 /* Handle stripes;
- */
-.noUi-handle:before,
-.noUi-handle:after {
-	content: "";
-	display: block;
-	position: absolute;
-	height: 14px;
-	width: 1px;
-	background: #e8e7e6;
-	left: 14px;
-	top: 6px;
-}
-.noUi-handle:after {
-	left: 17px;
-}
-.noUi-vertical .noUi-handle:before,
-.noUi-vertical .noUi-handle:after {
-	width: 14px;
-	height: 1px;
-	left: 6px;
-	top: 14px;
-}
-.noUi-vertical .noUi-handle:after {
-	top: 17px;
-}
+   */
+// .noUi-handle:before,
+// .noUi-handle:after {
+//   content: "";
+//   display: block;
+//   position: absolute;
+//   height: 14px;
+//   width: 1px;
+//   background: #e8e7e6;
+//   left: 14px;
+//   top: 6px;
+// }
+// .noUi-handle:after {
+//   left: 17px;
+// }
+// .noUi-vertical .noUi-handle:before,
+// .noUi-vertical .noUi-handle:after {
+//   width: 14px;
+//   height: 1px;
+//   left: 6px;
+//   top: 14px;
+// }
+// .noUi-vertical .noUi-handle:after {
+//   top: 17px;
+// }
 /* Disabled state;
- */
+   */
 [disabled] .noUi-connect {
 	background: #b8b8b8;
 }
@@ -171,8 +180,8 @@
 	cursor: not-allowed;
 }
 /* Base;
- *
- */
+   *
+   */
 .noUi-pips,
 .noUi-pips * {
 	box-sizing: border-box;
@@ -182,20 +191,21 @@
 	color: #999;
 }
 /* Values;
- *
- */
+   *
+   */
 .noUi-value {
 	position: absolute;
 	white-space: nowrap;
 	text-align: center;
+	font-size: toRem(10);
 }
 .noUi-value-sub {
 	color: #ccc;
 	font-size: 10px;
 }
 /* Markings;
- *
- */
+   *
+   */
 .noUi-marker {
 	position: absolute;
 	background: #ccc;
@@ -207,8 +217,8 @@
 	background: #aaa;
 }
 /* Horizontal layout;
- *
- */
+   *
+   */
 .noUi-pips-horizontal {
 	padding: 10px 0;
 	height: 80px;
@@ -217,25 +227,25 @@
 	width: 100%;
 }
 .noUi-value-horizontal {
-	transform: translate(-50%, 50%);
+	transform: translate(-50%, toRem(12));
 }
 .noUi-rtl .noUi-value-horizontal {
 	transform: translate(50%, 50%);
 }
 .noUi-marker-horizontal.noUi-marker {
 	margin-left: -1px;
-	width: 2px;
-	height: 5px;
+	width: toRem(1);
+	height: toRem(5);
 }
 .noUi-marker-horizontal.noUi-marker-sub {
-	height: 10px;
+	height: toRem(5);
 }
 .noUi-marker-horizontal.noUi-marker-large {
-	height: 15px;
+	height: toRem(10);
 }
 /* Vertical layout;
- *
- */
+   *
+   */
 .noUi-pips-vertical {
 	padding: 0 10px;
 	height: 100%;
@@ -263,18 +273,19 @@
 .noUi-tooltip {
 	display: block;
 	position: absolute;
-	border: 1px solid #d9d9d9;
+	border: 1px solid #000;
 	border-radius: 3px;
 	background: #fff;
 	color: #000;
-	padding: 5px;
+	padding: toRem(2) toRem(4);
 	text-align: center;
 	white-space: nowrap;
+	font-size: toRem(14);
 }
 .noUi-horizontal .noUi-tooltip {
 	transform: translate(-50%, 0);
 	left: 50%;
-	bottom: 120%;
+	bottom: calc(100% + toRem(5));
 }
 .noUi-vertical .noUi-tooltip {
 	transform: translate(0, -50%);

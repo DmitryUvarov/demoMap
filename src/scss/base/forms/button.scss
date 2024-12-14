@@ -3,11 +3,16 @@
 
 .button {
 	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
 	padding: 0px 0px;
+
 	@media (any-hover: hover) {
 		&:hover {
 		}
 	}
+
 	&--fw {
 		width: 100%;
 	}

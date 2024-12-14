@@ -1,9 +1,9 @@
-import { Loader } from '@googlemaps/js-api-loader';
-import { MAP_STYLES, BREAKPOINTS } from '../utils/constants.js';
+import { Loader } from "@googlemaps/js-api-loader"
+import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 
 // npm i @googlemaps/js-api-loader
 
-(() => {
+;(() => {
 	/*
 		Структура в HTML:
 		<section class="js-map-section">
@@ -16,33 +16,33 @@ import { MAP_STYLES, BREAKPOINTS } from '../utils/constants.js';
 	*/
 
 	const SELECTORS = {
-		section: '.js-map-section',
-		marker: '.js-map-marker',
-		map: '.js-map',
-	};
+		section: ".js-map-section",
+		marker: ".js-map-marker",
+		map: ".js-map",
+	}
 
-	const $sections = document.querySelectorAll(SELECTORS.section);
+	const $sections = document.querySelectorAll(SELECTORS.section)
 
-	if (!$sections.length) return;
+	if (!$sections.length) return
 
-	const loadMap = async (onLoad) => {
+	const loadMap = async onLoad => {
 		const loader = new Loader({
-			apiKey: 'YOUR_API_KEY',
-			version: 'weekly',
-			libraries: ['places'],
-		});
+			apiKey: "AIzaSyAt8oA3_GoXZJfW1DqHVFHShcwFvAD0g7w",
+			version: "weekly",
+			libraries: ["places"],
+		})
 
 		try {
-			const { Map } = await loader.importLibrary('maps');
-			const { Marker } = await loader.importLibrary('marker');
-			const Core = await loader.importLibrary('core');
+			const { Map } = await loader.importLibrary("maps")
+			const { Marker } = await loader.importLibrary("marker")
+			const Core = await loader.importLibrary("core")
 
-			onLoad({ Map, Marker, Core });
+			onLoad({ Map, Marker, Core })
 		} catch (e) {
-			console.log('google map error');
-			console.log(e);
+			console.log("google map error")
+			console.log(e)
 		}
-	};
+	}
 
 	const initMap = ({ api, lng, lat, markersData, zoom, maxZoom, $map }) => {
 		const mapOptions = {
@@ -55,14 +55,14 @@ import { MAP_STYLES, BREAKPOINTS } from '../utils/constants.js';
 				lng,
 			},
 			disableDefaultUI: true,
-		};
+		}
 
-		const map = new api.Map($map, mapOptions);
+		const map = new api.Map($map, mapOptions)
 
-		const markerDesktopSize = { width: 40, height: 57 };
-		const markerMobileSize = { width: 30, height: 42 };
+		const markerDesktopSize = { width: 40, height: 57 }
+		const markerMobileSize = { width: 30, height: 42 }
 		// Розмір маркерів
-		const markerSize = window.innerWidth < BREAKPOINTS.tablet ? markerMobileSize : markerDesktopSize;
+		const markerSize = window.innerWidth < BREAKPOINTS.tablet ? markerMobileSize : markerDesktopSize
 
 		const markers = markersData.map(({ lat, lng, icon }) => {
 			const marker = new api.marker.AdvancedMarkerElement({
@@ -73,45 +73,45 @@ import { MAP_STYLES, BREAKPOINTS } from '../utils/constants.js';
 					anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
 					scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
 				},
-			});
+			})
 
-			api.Core.event.addListener(marker, 'click', () => {
-				markers.forEach((m) =>
+			api.Core.event.addListener(marker, "click", () => {
+				markers.forEach(m =>
 					m.setIcon({
 						url: m.icon.url,
 						anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
 						scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
-					}),
-				);
+					})
+				)
 
 				marker.setIcon({
 					url: marker.icon.url,
 					anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
 					scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
-				});
+				})
 
-				map.panTo(marker.getPosition());
-			});
+				map.panTo(marker.getPosition())
+			})
 
-			return marker;
-		});
+			return marker
+		})
 
-		return map;
-	};
+		return map
+	}
 
-	loadMap((api) => {
-		$sections.forEach(($section) => {
-			const $maps = $section.querySelectorAll(SELECTORS.map);
-			if (!$maps.length) return;
+	loadMap(api => {
+		$sections.forEach($section => {
+			const $maps = $section.querySelectorAll(SELECTORS.map)
+			if (!$maps.length) return
 
-			$maps.forEach(($map) => {
-				const $markers = $map.parentElement.querySelectorAll(SELECTORS.marker);
+			$maps.forEach($map => {
+				const $markers = $map.parentElement.querySelectorAll(SELECTORS.marker)
 
-				const markersData = Array.from($markers).map(($marker) => ({
+				const markersData = Array.from($markers).map($marker => ({
 					lng: parseFloat($marker.dataset.lng) || 0,
 					lat: parseFloat($marker.dataset.lat) || 0,
 					icon: $marker.dataset.icon,
-				}));
+				}))
 
 				const map = initMap({
 					api,
@@ -121,8 +121,8 @@ import { MAP_STYLES, BREAKPOINTS } from '../utils/constants.js';
 					zoom: parseFloat($map.dataset.zoom) || 6,
 					maxZoom: parseFloat($map.dataset.maxZoom) || 18,
 					markersData,
-				});
-			});
-		});
-	});
-})();
+				})
+			})
+		})
+	})
+})()
