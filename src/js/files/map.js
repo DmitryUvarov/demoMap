@@ -2,7 +2,6 @@ import { Loader } from "@googlemaps/js-api-loader"
 import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 
 // npm i @googlemaps/js-api-loader
-
 ;(() => {
 	/*
 		Структура в HTML:
@@ -13,6 +12,7 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 			<div class="js-map" data-zoom="16" data-lat="-36.84716497397779" data-lng="174.7686136240803"></div>
 			...
 		</section>
+
 	*/
 
 	const SELECTORS = {
