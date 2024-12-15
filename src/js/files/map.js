@@ -35,9 +35,10 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 		try {
 			const { Map } = await loader.importLibrary("maps")
 			const { Marker } = await loader.importLibrary("marker")
+			const { AdvancedMarkerElement } = await loader.importLibrary("marker")
 			const Core = await loader.importLibrary("core")
 
-			onLoad({ Map, Marker, Core })
+			onLoad({ Map, Marker, Core, AdvancedMarkerElement })
 		} catch (e) {
 			console.log("google map error")
 			console.log(e)
@@ -55,6 +56,7 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 				lng,
 			},
 			disableDefaultUI: true,
+			mapId: "DEMO_MAP_ID",
 		}
 
 		const map = new api.Map($map, mapOptions)
@@ -65,14 +67,17 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 		const markerSize = window.innerWidth < BREAKPOINTS.tablet ? markerMobileSize : markerDesktopSize
 
 		const markers = markersData.map(({ lat, lng, icon }) => {
-			const marker = new api.marker.AdvancedMarkerElement({
+			let iconElement = document.createElement("img")
+			iconElement.src = icon
+			const marker = new api.AdvancedMarkerElement({
 				map,
 				position: new api.Core.LatLng(lat, lng),
-				icon: {
-					url: icon,
-					anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
-					scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
-				},
+				content: iconElement,
+				// icon: {
+				// 	url: icon,
+				// 	anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
+				// 	scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
+				// },
 			})
 
 			api.Core.event.addListener(marker, "click", () => {
