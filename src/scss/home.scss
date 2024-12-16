@@ -1,3 +1,47 @@
+//========================================================================================================================================================
+
+.test {
+	padding-top: toRem(100);
+	padding-bottom: toRem(100);
+	&__container {
+	}
+
+	&__items {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: toRem(20);
+	}
+
+	&__item {
+	}
+
+	&__image-block {
+		position: relative;
+		display: block;
+		margin-bottom: toRem(15);
+
+		aspect-ratio: 375 / 175;
+	}
+
+	&__image {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		object-fit: cover;
+		transition: opacity 0.3s ease;
+
+		&:not(:first-child) {
+			opacity: 0;
+		}
+	}
+
+	&__content {
+		font-size: toRem(22);
+	}
+}
+
 //====================================================================================================
 
 .js-map-section {

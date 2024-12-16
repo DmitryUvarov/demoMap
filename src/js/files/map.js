@@ -23,6 +23,8 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 
 	const $sections = document.querySelectorAll(SELECTORS.section)
 
+	let infoWindow = null
+
 	if (!$sections.length) return
 
 	const loadMap = async onLoad => {
@@ -33,10 +35,11 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 		})
 
 		try {
-			const { Map } = await loader.importLibrary("maps")
+			const { Map, InfoWindow } = await loader.importLibrary("maps")
 			const { Marker } = await loader.importLibrary("marker")
 			const { AdvancedMarkerElement } = await loader.importLibrary("marker")
 			const Core = await loader.importLibrary("core")
+			infoWindow = new InfoWindow()
 
 			onLoad({ Map, Marker, Core, AdvancedMarkerElement })
 		} catch (e) {
@@ -49,7 +52,7 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 		const mapOptions = {
 			maxZoom,
 			zoom,
-			mapTypeControl: false,
+			mapTypeControl: true,
 			styles: MAP_STYLES,
 			center: {
 				lat,
@@ -79,23 +82,37 @@ import { MAP_STYLES, BREAKPOINTS } from "../utils/constants.js"
 				// 	scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
 				// },
 			})
+			console.log("Core", api.Core)
+			// api.Core.event.addListener(marker, "click", event => {
+			// 	markers.forEach(
+			// 		m => {
+			// 			console.log("m", m, event)
+			// 		}
+			// 		// m.setIcon({
+			// 		// 	url: m.icon.url,
+			// 		// 	anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
+			// 		// 	scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
+			// 		// })
+			// 	)
+			// 	console.log("marker", marker)
+			// 	// marker.setIcon({
+			// 	// 	url: marker.icon.url,
+			// 	// 	anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
+			// 	// 	scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
+			// 	// })
 
-			api.Core.event.addListener(marker, "click", () => {
-				markers.forEach(m =>
-					m.setIcon({
-						url: m.icon.url,
-						anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
-						scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
-					})
-				)
+			// 	// map.panTo(marker.getPosition())
+			// })
 
-				marker.setIcon({
-					url: marker.icon.url,
-					anchor: new api.Core.Point(markerSize.width / 2, markerSize.height),
-					scaledSize: new api.Core.Size(markerSize.width, markerSize.height),
-				})
+			marker.addListener("click", ({ domEvent, latLng }) => {
+				const { target } = domEvent
 
-				map.panTo(marker.getPosition())
+				console.log("marker", marker, target)
+
+				infoWindow.open(marker.map, marker)
+				// infoWindow.close()
+				// infoWindow.setContent(marker.title)
+				// infoWindow.open(marker.map, marker)
 			})
 
 			return marker
